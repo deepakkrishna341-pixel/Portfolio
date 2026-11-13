@@ -220,14 +220,13 @@
 
         <div class="skill-chart-panel reveal" aria-labelledby="skill-chart-title">
           <div class="skill-chart-heading">
-            <div><div class="section-kicker">Interactive skill snapshot</div><h3 id="skill-chart-title">My skill levels</h3></div>
-            <span class="chart-hint">Drag a slider to adjust each level</span>
+            <div><div class="section-kicker">Technical skill snapshot</div><h3 id="skill-chart-title">My skill levels</h3></div>
+            <span class="chart-hint">Skill overview</span>
           </div>
-          <p class="chart-disclaimer">Editable self-assessment starting points, not test scores or verified rankings. Update them to match your current experience.</p>
-          <div id="skillChart" class="skill-chart" aria-label="Interactive skill level graph"></div>
+          <p class="chart-disclaimer">A personal self-assessment of my current skills.</p>
+          <div id="skillChart" class="skill-chart" aria-label="Fixed skill level graph"></div>
           <div class="chart-actions">
-            <button class="filter-btn" type="button" id="resetSkillLevels">Reset starting levels</button>
-            <span class="chart-hint">Scale: 0–100 · Changes update the graph instantly</span>
+            <span class="chart-hint">Scale: 0–100</span>
           </div>
         </div>
 
@@ -523,40 +522,40 @@
 
     });
 
-    // Editable, accessible skill graph. Values are self-assessment estimates.
+    // Fixed skill graph. Edit these values in VS Code to update your portfolio.
+    // Visitors can view the graph but cannot change the skill levels through the page.
     const skillLevels = [
-      ["Python",82],["C",76],["C++",74],["HTML5",88],["CSS3",86],["JavaScript",78],["PHP",84],
-      ["Laravel",80],["MySQL",83],["AI fundamentals",78],["Prompt engineering",82],
-      ["Cloud computing",76],["Cybersecurity",72],["Problem solving",84],["Teamwork",86],["Communication",82]
+      ["Python", 82],
+      ["C", 76],
+      ["C++", 74],
+      ["HTML5", 88],
+      ["CSS3", 86],
+      ["JavaScript", 78],
+      ["PHP", 84],
+      ["Laravel", 80],
+      ["MySQL", 83],
+      ["AI fundamentals", 78],
+      ["Prompt engineering", 82],
+      ["Cloud computing", 76],
+      ["Cybersecurity", 72],
+      ["Problem solving", 84],
+      ["Teamwork", 86],
+      ["Communication", 82]
     ];
+
     const skillChart = document.getElementById("skillChart");
-    function renderSkillChart() {
-      skillChart.innerHTML = skillLevels.map(([name,value],i) => `
-        <label class="skill-level-row" for="skill-level-${i}">
-          <span class="skill-level-name">${name}</span>
-          <span class="skill-level-control" style="--level:${value}%">
-            <input id="skill-level-${i}" type="range" min="0" max="100" step="1" value="${value}"
-              aria-label="${name} self-assessed skill level" aria-valuetext="${value} out of 100">
-            <span class="skill-level-track" aria-hidden="true"><span style="width:${value}%"></span></span>
+
+    skillChart.innerHTML = skillLevels.map(([name, value]) => `
+      <div class="skill-level-row">
+        <span class="skill-level-name">${name}</span>
+        <span class="skill-level-control" style="--level:${value}%">
+          <span class="skill-level-track" aria-hidden="true">
+            <span style="width:${value}%"></span>
           </span>
-          <output class="skill-level-value" for="skill-level-${i}">${value}%</output>
-        </label>`).join("");
-      skillChart.querySelectorAll('input[type="range"]').forEach((slider,i) => {
-        slider.addEventListener("input",() => {
-          const value=Number(slider.value); skillLevels[i][1]=value;
-          slider.setAttribute("aria-valuetext",`${value} out of 100`);
-          const row=slider.closest(".skill-level-row");
-          row.querySelector(".skill-level-track span").style.width=`${value}%`;
-          row.querySelector(".skill-level-control").style.setProperty("--level",`${value}%`);
-          row.querySelector("output").textContent=`${value}%`;
-        });
-      });
-    }
-    renderSkillChart();
-    document.getElementById("resetSkillLevels").addEventListener("click",() => {
-      const defaults=[82,76,74,88,86,78,84,80,83,78,82,76,72,84,86,82];
-      skillLevels.forEach((skill,i)=>skill[1]=defaults[i]); renderSkillChart();
-    });
+        </span>
+        <span class="skill-level-value">${value}%</span>
+      </div>
+    `).join("");
 
     const observer = new IntersectionObserver(entries => {
 
