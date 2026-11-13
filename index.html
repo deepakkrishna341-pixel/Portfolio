@@ -31,6 +31,8 @@
       user-select: none !important;
       -webkit-user-select: none !important;
       cursor: default !important;
+      touch-action: none !important;
+      -webkit-user-drag: none !important;
     }
     #skillChart input, #skillChart button, #skillChart [contenteditable="true"],
     #skillChart [role="slider"] {
@@ -238,7 +240,7 @@
             <span class="chart-hint">Skill overview</span>
           </div>
           <p class="chart-disclaimer">A personal self-assessment of my current skills.</p>
-          <div id="skillChart" class="skill-chart" aria-label="Fixed skill level graph"></div>
+          <div id="skillChart" class="skill-chart" aria-label="Read-only skill level graph" aria-readonly="true" inert></div>
           <div class="chart-actions">
             <span class="chart-hint">Scale: 0–100</span>
           </div>
@@ -538,11 +540,22 @@
 
     // Read-only skill graph. Change the numbers here in VS Code.
     const skillLevels = [
-      ["Python", 82], ["C", 76], ["C++", 74], ["HTML5", 88],
-      ["CSS3", 86], ["JavaScript", 78], ["PHP", 84], ["Laravel", 80],
-      ["MySQL", 83], ["AI fundamentals", 78], ["Prompt engineering", 82],
-      ["Cloud computing", 76], ["Cybersecurity", 72],
-      ["Problem solving", 84], ["Teamwork", 86], ["Communication", 82]
+      ["Python", 85],
+      ["C", 78],
+      ["C++", 78],
+      ["HTML5", 90],
+      ["CSS3", 88],
+      ["JavaScript", 85],
+      ["PHP", 88],
+      ["Laravel", 87],
+      ["MySQL", 86],
+      ["AI fundamentals", 82],
+      ["Prompt engineering", 88],
+      ["Cloud computing", 82],
+      ["Cybersecurity", 80],
+      ["Problem solving", 88],
+      ["Teamwork", 90],
+      ["Communication", 100]
     ];
 
     const skillChart = document.getElementById("skillChart");
