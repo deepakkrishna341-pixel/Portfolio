@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Deepak Krishna MS — MCA student and aspiring software developer building practical web applications with PHP, Laravel, MySQL and Python.">
+
+  <meta name="theme-color" content="#0a0a0b">
+
+  <script>document.documentElement.classList.add('js')</script>
+
+  <title>Deepak Krishna MS — Developer Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+  <div class="preloader" aria-hidden="true"><div class="preloader-inner"><div class="preloader-brand">DK<i>.</i>MS</div><div class="preloader-bar"><span></span></div><div class="preloader-count">000</div></div></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div><div class="cursor-dot" aria-hidden="true"></div>
+
+  <header class="site-header">
+
+    <nav class="nav container" aria-label="Main navigation">
+
+      <a class="nav-brand" href="#home" aria-label="DK.MS — Deepak Krishna MS">
+        DK<span class="brand-dot">.</span>MS
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- yellow rounded square frame -->
+            <rect x="2.5" y="2.5" width="43" height="43" rx="13" fill="#d4ff3f" fill-opacity="0.12" stroke="#d4ff3f" stroke-width="2.4"/>
+            <!-- Clean bold DK letters -->
+            <text x="24" y="31" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#d4ff3f" letter-spacing="-1">DK</text>
+          </svg>
+        </span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+
+        <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li>
+
+        <li><a href="#projects">Projects</a></li><li><a href="#journey">Journey</a></li>
+
+        <li><a href="#contact" class="nav-cta">Contact ↗</a></li>
+
+      </ul>
+
+    </nav>
+
+  </header>
+
+
+
+  <main>
+
+    <section class="hero" id="home">
+
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+
+          <div class="eyebrow"><span class="status-dot"></span> MCA student · Open to opportunities</div>
+
+          <h1>Hi, I'm<br><span class="name-accent">Deepak Krishna.</span></h1>
+
+          <p class="hero-lead">I’m an aspiring <strong>software developer</strong> who enjoys turning ideas into useful digital experiences — from database-driven web applications to exploring practical uses of AI.</p>
+
+          <div class="hero-actions">
+
+            <a class="button button-primary" href="#projects">Explore my work <span>↗</span></a>
+
+            <a class="button button-secondary" href="portfolio.pdf" download>Download portfolio PDF <span>↓</span></a>
+            <button class="button button-secondary" type="button" onclick="window.print()">Print / Save as PDF <span>↗</span></button>
+
+          </div>
+
+          <div class="quick-links" aria-label="Social and contact links">
+
+            <a class="social-icon" href="https://www.linkedin.com/in/krishna-877772332/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.4h2.67ZM7 8.23a1.55 1.55 0 1 1 .02-3.1A1.55 1.55 0 0 1 7 8.23ZM18.34 18h-2.67v-4.18c0-1-.02-2.28-1.39-2.28-1.39 0-1.6 1.08-1.6 2.2V18h-2.67V9.4h2.56v1.17h.04a2.81 2.81 0 0 1 2.53-1.39c2.7 0 3.2 1.78 3.2 4.1Z"/></svg>
+            </a>
+
+            <a class="social-icon" href="https://github.com/deepakkrishna341-pixel" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" title="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.08c-3.1.67-3.76-1.31-3.76-1.31-.51-1.3-1.24-1.65-1.24-1.65-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .1.76 2.08 3.4 1.48.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3.01 0 4.29-2.61 5.23-5.1 5.51.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>
+            </a>
+
+            <a class="social-icon" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=deepakkrishna341%40gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Send email" title="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5Zm-.1 2.1 8.1 6.1a.85.85 0 0 0 1 0l8.1-6.1V6.9l-8.1 6.1a.85.85 0 0 1-1 0L3.4 6.9Z"/></svg>
+            </a>
+
+            <a class="social-icon" href="https://www.instagram.com/deepak_krishna_ms_.i/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile" title="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.2A4.8 4.8 0 1 0 12 16.8 4.8 4.8 0 0 0 12 7.2Zm0 7.9A3.1 3.1 0 1 1 12 8.9a3.1 3.1 0 0 1 0 6.2Zm5.4-8.9a1.12 1.12 0 1 0 0 2.24 1.12 1.12 0 0 0 0-2.24ZM12 4.5c-2.1 0-2.4 0-3.2.05a4.4 4.4 0 0 0-3.2 1.15A4.4 4.4 0 0 0 4.55 8.9c-.05.8-.05 1.1-.05 3.2s0 2.4.05 3.2a4.4 4.4 0 0 0 1.15 3.2 4.4 4.4 0 0 0 3.2 1.15c.8.05 1.1.05 3.2.05s2.4 0 3.2-.05a4.4 4.4 0 0 0 3.2-1.15 4.4 4.4 0 0 0 1.15-3.2c.05-.8.05-1.1.05-3.2s0-2.4-.05-3.2a4.4 4.4 0 0 0-1.15-3.2A4.4 4.4 0 0 0 15.2 4.55C14.4 4.5 14.1 4.5 12 4.5Zm0 1.5c2.1 0 2.3 0 3.15.05a2.9 2.9 0 0 1 2.1.8 2.9 2.9 0 0 1 .8 2.1c.05.85.05 1.05.05 3.15s0 2.3-.05 3.15a2.9 2.9 0 0 1-.8 2.1 2.9 2.9 0 0 1-2.1.8c-.85.05-1.05.05-3.15.05s-2.3 0-3.15-.05a2.9 2.9 0 0 1-2.1-.8 2.9 2.9 0 0 1-.8-2.1C6.5 14.3 6.5 14.1 6.5 12s0-2.3.05-3.15a2.9 2.9 0 0 1 .8-2.1 2.9 2.9 0 0 1 2.1-.8C9.7 6 9.9 6 12 6Z"/></svg>
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="hero-art" aria-label="Profile portrait and technology highlights">
+
+          <div class="orbit"><i></i></div>
+
+          <div class="portrait-frame">
+
+            <img src="assets/profile.jpg" alt="Portrait of Deepak Krishna MS">
+
+          </div>
+
+          <div class="float-card float-top"><small>FOCUS AREA</small><strong>Web Development</strong></div>
+
+          <div class="float-card float-bottom"><small>CURRENTLY LEARNING</small><strong>Building · Improving · Exploring</strong></div>
+
+        </div>
+
+      </div>
+
+      <div class="scroll-note">SCROLL TO EXPLORE ↓</div>
+
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-track">
+      <span>Python</span><b>✦</b><span>Laravel</span><b>✦</b><span>PHP</span><b>✦</b><span>MySQL</span><b>✦</b><span>JavaScript</span><b>✦</b><span>HTML5</span><b>✦</b><span>CSS3</span><b>✦</b><span>AI fundamentals</span><b>✦</b>
+      <span>Python</span><b>✦</b><span>Laravel</span><b>✦</b><span>PHP</span><b>✦</b><span>MySQL</span><b>✦</b><span>JavaScript</span><b>✦</b><span>HTML5</span><b>✦</b><span>CSS3</span><b>✦</b><span>AI fundamentals</span><b>✦</b>
+    </div></div>
+
+
+
+    <section id="about">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div><div class="section-kicker">01 / A little about me</div><h2>Curious by nature.<br>Developer in progress.</h2></div>
+
+          <p class="section-intro">A quick introduction to my background, interests and the kind of opportunities I’m working towards.</p>
+
+        </div>
+
+        <div class="about-grid">
+
+          <div class="about-copy reveal">
+
+            <p>I’m <strong>Deepak Krishna MS</strong>, currently pursuing a Master of Computer Applications (MCA) at <strong>Santhigiri College, Thodupuzha</strong>. I completed my BCA at <strong>Jai Bharat Arts and Science College, Perumbavoor</strong>.</p>
+
+            <p>I enjoy developing practical applications and understanding how the frontend, backend and database work together. My academic work includes a <strong>Smart Event Management System built with Laravel, PHP and MySQL</strong>, along with a travel-planning project.</p>
+
+            <p>I’ve also completed an online AI internship and developed an interest in AI tools, cloud computing and cybersecurity. I’m looking for opportunities where I can contribute, learn from experienced teams and grow as a software developer.</p>
+
+            <p class="looking-for"><strong>What I’m looking for:</strong> A software development internship or entry-level role focused on web applications (PHP, Laravel, MySQL, JavaScript), where I can contribute to real products and keep learning with an experienced team.</p>
+
+          </div>
+
+          <div class="fact-stack reveal">
+
+            <div class="fact"><span class="meta-label">Education</span><strong>MCA · 2025–2027</strong><span>Santhigiri College, Thodupuzha</span></div>
+
+            <div class="fact"><span class="meta-label">Development focus</span><strong>Web applications & databases</strong><span>PHP · Laravel · MySQL · JavaScript</span></div>
+
+            <div class="fact"><span class="meta-label">Based in</span><strong>Idukki, Kerala, India</strong><span>English · Malayalam · Hindi</span></div>
+
+            <div class="fact"><span class="meta-label">Career direction</span><strong>Software development</strong><span>Internships and entry-level opportunities</span></div>
+
+            <div class="fact"><span class="meta-label">What I’m looking for</span><strong>Internship / entry-level</strong><span>Web development · PHP · Laravel · full-stack exposure</span></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="skills">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div><div class="section-kicker">02 / My toolkit</div><h2>Skills & technologies.</h2></div>
+
+          <p class="section-intro">A practical foundation across programming, web development and the technologies I’m exploring.</p>
+
+        </div>
+
+        <div class="skill-grid">
+
+          <article class="skill-card reveal"><div class="skill-icon">&lt;/&gt;</div><h3>Programming</h3><p>Core programming foundations and logical problem-solving.</p><div class="tags"><span class="tag">Python</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Problem solving</span></div></article>
+
+          <article class="skill-card reveal"><div class="skill-icon">01</div><h3>Web development</h3><p>Building responsive interfaces and application workflows.</p><div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">Responsive UI</span></div></article>
+
+          <article class="skill-card reveal"><div class="skill-icon">DB</div><h3>Backend & databases</h3><p>Developing data-driven applications and managing relational data.</p><div class="tags"><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">REST concepts</span><span class="tag">MVC</span></div></article>
+
+          <article class="skill-card reveal"><div class="skill-icon">AI</div><h3>AI & emerging tech</h3><p>Exploring AI-assisted features, prompt engineering and applied technology.</p><div class="tags"><span class="tag">AI fundamentals</span><span class="tag">Prompt engineering</span><span class="tag">AI tools</span></div></article>
+
+          <article class="skill-card reveal"><div class="skill-icon">☁</div><h3>Cloud & security</h3><p>Academic and certification-based learning in cloud computing and cybersecurity.</p><div class="tags"><span class="tag">Cloud computing</span><span class="tag">Cybersecurity</span><span class="tag">NPTEL</span></div></article>
+
+          <article class="skill-card reveal"><div class="skill-icon">↗</div><h3>Professional skills</h3><p>Working collaboratively, communicating ideas and approaching problems methodically.</p><div class="tags"><span class="tag">Problem solving</span><span class="tag">Teamwork</span><span class="tag">Communication</span><span class="tag">Documentation</span></div></article>
+
+          <article class="skill-card reveal"><div class="skill-icon">⌘</div><h3>Tools & workflow</h3><p>Everyday tools I use while building, testing and versioning projects.</p><div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">Postman</span><span class="tag">MySQL Workbench</span></div></article>
+
+        </div>
+
+        <div class="skill-chart-panel reveal" aria-labelledby="skill-chart-title">
+          <div class="skill-chart-heading">
+            <div><div class="section-kicker">Interactive skill snapshot</div><h3 id="skill-chart-title">My skill levels</h3></div>
+            <span class="chart-hint">Drag a slider to adjust each level</span>
+          </div>
+          <p class="chart-disclaimer">Editable self-assessment starting points, not test scores or verified rankings. Update them to match your current experience.</p>
+          <div id="skillChart" class="skill-chart" aria-label="Interactive skill level graph"></div>
+          <div class="chart-actions">
+            <button class="filter-btn" type="button" id="resetSkillLevels">Reset starting levels</button>
+            <span class="chart-hint">Scale: 0–100 · Changes update the graph instantly</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="projects">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div><div class="section-kicker">03 / Selected work</div><h2>Projects with purpose.</h2></div>
+
+          <p class="section-intro">A selection of academic projects and research work. I’ve kept the descriptions focused on what each project actually does.</p>
+
+        </div>
+
+        <div class="project-toolbar reveal" role="group" aria-label="Filter projects">
+
+          <button class="filter-btn" data-filter="all" aria-pressed="true">All work</button>
+
+          <button class="filter-btn" data-filter="development" aria-pressed="false">Development</button>
+
+          <button class="filter-btn" data-filter="research" aria-pressed="false">Research</button>
+
+        </div>
+
+        <div class="project-grid">
+
+          <article class="project-card reveal" data-category="development">
+
+            <div class="project-top"><span class="project-index">PROJECT / 01</span><span class="project-type">MCA main project</span></div>
+
+            <h3>Smart Event Management System <span style="color:var(--accent)">(EventPro)</span></h3>
+
+            <figure class="project-shot">
+              <img src="assets/eventpro-homepage.jpg" alt="EventPro home page — Plan, Manage and Host Every Event With Ease" loading="lazy">
+              <figcaption>Home page</figcaption>
+            </figure>
+
+            <p>A web-based platform for managing events and programs through Admin, Organizer and Participant roles. The system supports organizer approval, event and category management, participant registration, and free or paid event workflows. It also explores AI-assisted event-banner generation.</p>
+
+            <div class="tags"><span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">AI integration</span></div>
+
+            <div class="project-note">Academic project · Santhigiri College</div>
+
+          </article>
+
+          <article class="project-card reveal" data-category="development">
+
+            <div class="project-top"><span class="project-index">PROJECT / 02</span><span class="project-type">BCA main project</span></div>
+
+            <h3>Travel Planner with Buddy Finder</h3>
+
+            <figure class="project-shot">
+              <img src="assets/travel-planner-homepage.jpg" alt="Travel Planner with Buddy Finder — Your Next Journey Starts Here home page" loading="lazy">
+              <figcaption>Home page</figcaption>
+            </figure>
+
+            <p>A travel-planning web application concept designed to help users organize trips and discover travel companions with similar plans or interests.</p>
+
+            <div class="tags"><span class="tag">Web application</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">MySQL</span></div>
+
+            <div class="project-note">Academic project · Jai Bharat College</div>
+
+          </article>
+
+          <article class="project-card reveal" data-category="research">
+
+            <div class="project-top"><span class="project-index">RESEARCH / 03</span><span class="project-type">Paper presentation</span></div>
+
+            <h3>Virtual Reality in Pilot Training</h3>
+
+            <figure class="project-shot">
+              <img src="assets/vr-pilot-training.jpg" alt="VR in Aviation — Virtual Reality in Pilot Training research visual" loading="lazy">
+              <figcaption>Research visual</figcaption>
+            </figure>
+
+            <p>An academic presentation examining research on VR-based pilot training, comparing VR practice, PC-based simulator practice and a control group using flight-performance measures.</p>
+
+            <div class="tags"><span class="tag">Virtual Reality</span><span class="tag">Aviation</span><span class="tag">Research analysis</span></div>
+
+            <div class="project-note">Research paper presentation</div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="journey">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div><div class="section-kicker">04 / Learning journey</div><h2>Education & experience.</h2></div>
+
+          <p class="section-intro">My academic path, technical training and ongoing development.</p>
+
+        </div>
+
+        <div class="timeline">
+
+          <article class="timeline-item reveal"><div class="timeline-date">2025 — 2027 · IN PROGRESS</div><h3>Master of Computer Applications (MCA)</h3><p>Santhigiri College of Computer Sciences, Thodupuzha</p><div class="sub">M.G. University</div></article>
+
+          <article class="timeline-item reveal"><div class="timeline-date">2022 — 2025 · COMPLETED</div><h3>Bachelor of Computer Applications (BCA)</h3><p>Jai Bharat College of Arts and Sciences, Perumbavoor</p><div class="sub">M.G. University · CGPA 7.00</div></article>
+
+          <article class="timeline-item reveal"><div class="timeline-date">HIGHER SECONDARY · COMPLETED</div><h3>Plus Two</h3><p>MES HSS, Vandenmedu</p><div class="sub">79% · 2 A+, 2 B+, 1 B and 1 C</div></article>
+
+          <article class="timeline-item reveal"><div class="timeline-date">SSLC · COMPLETED</div><h3>Secondary School Leaving Certificate (SSLC)</h3><p>GHSS, Kallar</p><div class="sub">93% · 8 A+ and 2 A</div></article>
+
+          <article class="timeline-item reveal"><div class="timeline-date">TRAINING</div><h3>Artificial Intelligence Internship</h3><p>Three-month online internship focused on AI learning and practical exposure.</p><div class="sub">Online internship</div></article>
+
+          <article class="timeline-item reveal"><div class="timeline-date">CERTIFICATION</div><h3>Cloud Computing & Cybersecurity</h3><p>Additional certification and learning in cloud computing and cybersecurity fundamentals.</p><div class="sub">Includes NPTEL Cloud Computing certification</div></article>
+
+        </div>
+
+        <div class="highlight-band reveal">
+
+          <div class="highlight-main">
+            <div>
+              <small>ACHIEVEMENT / RECOGNITION</small>
+              <h3>Second Prize — AI Prompt Generation</h3>
+              <p>Recognized in an AI prompt-generation competition.</p>
+            </div>
+            <img src="assets/achievement-ai-prompt.jpg" alt="Second Prize certificate for AI Prompt Generation at ASTHRA 11.0" class="achievement-photo" loading="lazy">
+          </div>
+
+          <div class="award-mark" aria-hidden="true">✦</div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="certifications">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div><div class="section-kicker">05 / Credentials</div><h2>Certifications & learning.</h2></div>
+
+          <p class="section-intro">Selected credentials and training that complement my academic studies.</p>
+
+        </div>
+
+        <div class="cert-grid">
+
+          <article class="cert-card reveal"><div class="cert-symbol">01 / ☁</div><h3>NPTEL — Cloud Computing</h3><p>Certification in cloud computing concepts and fundamentals.</p></article>
+
+          <article class="cert-card reveal"><div class="cert-symbol">02 / ◈</div><h3>Cloud Computing & Cybersecurity</h3><p>Add-on certificate covering cloud and cybersecurity topics.</p></article>
+
+          <article class="cert-card reveal"><div class="cert-symbol">03 / ✳</div><h3>AI Online Internship</h3><p>Three-month online internship and practical learning experience in AI.</p></article>
+
+        </div>
+
+        <p class="project-note">Certificate images and verification links can be added when available.</p>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="contact">
+
+      <div class="container">
+
+        <div class="contact-panel reveal">
+
+          <div><div class="section-kicker">06 / Let's connect</div><h2>Have an opportunity or a project in mind?</h2><p>I’m interested in software development internships and entry-level opportunities where I can keep learning and contribute to meaningful work. Feel free to reach out.</p><a class="button button-primary" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=deepakkrishna341%40gmail.com&amp;su=Hello%20Deepak" target="_blank" rel="noopener noreferrer">Open email composer ↗</a></div>
+
+          <div>
+
+            <form class="contact-form" action="https://formsubmit.co/deepakkrishna341@gmail.com" method="POST">
+
+              <input type="hidden" name="_subject" value="New message from your portfolio website">
+
+              <input type="hidden" name="_template" value="table">
+
+              <input type="hidden" name="_captcha" value="false">
+
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+              <label for="visitor-name">Your name
+
+                <input id="visitor-name" type="text" name="name" placeholder="Enter your name" required>
+
+              </label>
+
+              <label for="visitor-email">Your email
+
+                <input id="visitor-email" type="email" name="email" placeholder="name@example.com" required>
+
+              </label>
+
+              <label for="visitor-message">Message
+
+                <textarea id="visitor-message" name="message" placeholder="Write your message here..." required></textarea>
+
+              </label>
+
+              <button class="button button-primary" type="submit">Send message ↗</button>
+
+              <p class="form-note">Your message will be sent to Deepak's email inbox. The first submission may require a one-time email activation from FormSubmit.</p>
+
+            </form>
+
+            <div class="contact-list" style="margin-top:18px">
+
+              <a class="contact-link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=deepakkrishna341%40gmail.com" target="_blank" rel="noopener noreferrer"><span>Email</span><span>deepakkrishna341@gmail.com ↗</span></a>
+
+              <a class="contact-link" href="tel:+919037033851"><span>Phone</span><span>+91 90370 33851 ↗</span></a>
+
+              <a class="contact-link" href="https://www.linkedin.com/in/krishna-877772332/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><span>View profile ↗</span></a>
+
+              <a class="contact-link" href="https://github.com/deepakkrishna341-pixel" target="_blank" rel="noopener noreferrer"><span>GitHub</span><span>View repositories ↗</span></a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <footer><div class="container footer-inner"><span>© <span id="year"></span> DEEPAK KRISHNA MS</span><span>Designed with intention · Built with HTML, CSS & JavaScript</span><a href="portfolio.pdf" download>Download PDF ↓</a><a href="#home">Back to top ↑</a></div></footer>
+
+
+
+  <script>
+
+    const menuToggle = document.getElementById('menuToggle');
+
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+
+      const open = navLinks.classList.toggle('open');
+
+      menuToggle.setAttribute('aria-expanded', String(open));
+
+      menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+
+      menuToggle.textContent = open ? '✕' : '☰';
+
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+
+      navLinks.classList.remove('open');
+
+      menuToggle.setAttribute('aria-expanded', 'false');
+
+      menuToggle.textContent = '☰';
+
+    }));
+
+    document.querySelectorAll('.filter-btn').forEach(button => {
+
+      button.addEventListener('click', () => {
+
+        const filter = button.dataset.filter;
+
+        document.querySelectorAll('.filter-btn').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+
+        document.querySelectorAll('.project-card').forEach(card => {
+
+          card.hidden = filter !== 'all' && card.dataset.category !== filter;
+
+        });
+
+      });
+
+    });
+
+    // Editable, accessible skill graph. Values are self-assessment estimates.
+    const skillLevels = [
+      ["Python",82],["C",76],["C++",74],["HTML5",88],["CSS3",86],["JavaScript",78],["PHP",84],
+      ["Laravel",80],["MySQL",83],["AI fundamentals",78],["Prompt engineering",82],
+      ["Cloud computing",76],["Cybersecurity",72],["Problem solving",84],["Teamwork",86],["Communication",82]
+    ];
+    const skillChart = document.getElementById("skillChart");
+    function renderSkillChart() {
+      skillChart.innerHTML = skillLevels.map(([name,value],i) => `
+        <label class="skill-level-row" for="skill-level-${i}">
+          <span class="skill-level-name">${name}</span>
+          <span class="skill-level-control" style="--level:${value}%">
+            <input id="skill-level-${i}" type="range" min="0" max="100" step="1" value="${value}"
+              aria-label="${name} self-assessed skill level" aria-valuetext="${value} out of 100">
+            <span class="skill-level-track" aria-hidden="true"><span style="width:${value}%"></span></span>
+          </span>
+          <output class="skill-level-value" for="skill-level-${i}">${value}%</output>
+        </label>`).join("");
+      skillChart.querySelectorAll('input[type="range"]').forEach((slider,i) => {
+        slider.addEventListener("input",() => {
+          const value=Number(slider.value); skillLevels[i][1]=value;
+          slider.setAttribute("aria-valuetext",`${value} out of 100`);
+          const row=slider.closest(".skill-level-row");
+          row.querySelector(".skill-level-track span").style.width=`${value}%`;
+          row.querySelector(".skill-level-control").style.setProperty("--level",`${value}%`);
+          row.querySelector("output").textContent=`${value}%`;
+        });
+      });
+    }
+    renderSkillChart();
+    document.getElementById("resetSkillLevels").addEventListener("click",() => {
+      const defaults=[82,76,74,88,86,78,84,80,83,78,82,76,72,84,86,82];
+      skillLevels.forEach((skill,i)=>skill[1]=defaults[i]); renderSkillChart();
+    });
+
+    const observer = new IntersectionObserver(entries => {
+
+      entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add('visible');
+
+          observer.unobserve(entry.target);
+
+        }
+
+      });
+
+    }, {threshold: 0.12});
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+  </script>
+
+  <!-- GSAP + ScrollTrigger for premium cinematic motion (works offline-ish / VS Code Live Server) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="animations.js"></script>
+
+</body>
+
+</html>
