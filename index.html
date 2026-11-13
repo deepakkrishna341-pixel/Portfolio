@@ -24,22 +24,6 @@
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Lock the skill graph as a read-only display. -->
-  <style>
-    #skillChart, #skillChart * {
-      pointer-events: none !important;
-      user-select: none !important;
-      -webkit-user-select: none !important;
-      cursor: default !important;
-      touch-action: none !important;
-      -webkit-user-drag: none !important;
-    }
-    #skillChart input, #skillChart button, #skillChart [contenteditable="true"],
-    #skillChart [role="slider"] {
-      display: none !important;
-    }
-  </style>
-
 </head>
 
 <body>
@@ -240,7 +224,7 @@
             <span class="chart-hint">Skill overview</span>
           </div>
           <p class="chart-disclaimer">A personal self-assessment of my current skills.</p>
-          <div id="skillChart" class="skill-chart" aria-label="Read-only skill level graph" aria-readonly="true" inert></div>
+          <div id="skillChart" class="skill-chart" aria-label="Read-only skill level graph" aria-readonly="true"></div>
           <div class="chart-actions">
             <span class="chart-hint">Scale: 0–100</span>
           </div>
