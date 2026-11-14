@@ -1,0 +1,576 @@
+/* ==================================
+   MAIN ILLUSTRATION CARDS
+================================== */
+
+.section-illustration {
+  position: relative;
+  min-height: 310px;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #171717, #0c0c0c);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.section-illustration:hover {
+  transform: translateY(-8px);
+  border-color: rgba(34, 211, 238,0.6);
+}
+
+.illustration-visual {
+  height: 205px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.illustration-svg {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 280px;
+  height: 205px;
+  overflow: visible;
+}
+
+.illustration-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  color: #a4bccd;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.illustration-glow {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(34, 211, 238,0.09);
+  filter: blur(45px);
+  border-radius: 50%;
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+/* ==================================
+   COMMON SVG STYLES
+================================== */
+
+.illustration-orbit {
+  fill: none;
+  stroke: rgba(255,255,255,0.14);
+  stroke-width: 1;
+  stroke-dasharray: 5 7;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: orbitRotate 18s linear infinite;
+}
+
+.illustration-line,
+.plane-detail,
+.mountain-detail {
+  fill: none;
+  stroke: #bdbdbd;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.robot-body,
+.server-body,
+.calendar-body {
+  fill: #292929;
+  stroke: #a9a9a9;
+  stroke-width: 2;
+}
+
+.robot-face,
+.vr-lens {
+  fill: #111;
+  stroke: #22d3ee;
+  stroke-width: 1.5;
+}
+
+.robot-eye,
+.illustration-orange,
+.calendar-dot,
+.map-pin {
+  fill: #22d3ee;
+}
+
+.robot-mouth,
+.robot-detail {
+  fill: none;
+  stroke: #22d3ee;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.cloud-shape {
+  fill: #252525;
+  stroke: #aaa;
+  stroke-width: 2;
+}
+
+.shield-shape {
+  fill: #252525;
+  stroke: #22d3ee;
+  stroke-width: 2;
+}
+
+.lock-body {
+  fill: #111;
+  stroke: #aaa;
+  stroke-width: 2;
+}
+
+.vr-headset {
+  fill: #292929;
+  stroke: #bdbdbd;
+  stroke-width: 3;
+}
+
+.plane-shape {
+  fill: #a9a9a9;
+  stroke: #fff;
+  stroke-width: 1;
+}
+
+.calendar-body {
+  fill: #222;
+  stroke: #aaa;
+  stroke-width: 2;
+}
+
+.mountain-shape {
+  fill: #292929;
+  stroke: #aaa;
+  stroke-width: 2;
+}
+
+/* ==================================
+   ROBOT - HIDE AND SEEK
+================================== */
+
+.robot-character {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: robotHideSeek 5s ease-in-out infinite;
+}
+
+.robot-eyes {
+  animation: robotBlink 4s infinite;
+}
+
+.robot-antenna {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: antennaPulse 1.5s ease-in-out infinite;
+}
+
+.robot-hide-cover {
+  fill: #202020;
+  stroke: #555;
+  stroke-width: 1.5;
+}
+
+.hide-cover-detail {
+  fill: none;
+  stroke: #777;
+  stroke-width: 2;
+}
+
+@keyframes robotHideSeek {
+  0%, 15%, 100% {
+    transform: translateY(0);
+  }
+
+  25%, 38% {
+    transform: translateY(45px);
+  }
+
+  45%, 55% {
+    transform: translateY(28px);
+  }
+
+  65%, 80% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes robotBlink {
+  0%, 45%, 49%, 100% {
+    opacity: 1;
+  }
+
+  47% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes antennaPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+/* ==================================
+   SOFTWARE DEVELOPMENT
+================================== */
+
+.coding-screen {
+  fill: #080808;
+  stroke: #22d3ee;
+  stroke-width: 1;
+}
+
+.code-lines {
+  fill: none;
+  stroke: #22d3ee;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 70;
+  animation: codeTyping 3s linear infinite;
+}
+
+.coding-cursor {
+  fill: #fff;
+  animation: cursorBlink 0.7s steps(2) infinite;
+}
+
+.laptop-base {
+  fill: #777;
+  stroke: #aaa;
+  stroke-width: 1;
+}
+
+.coding-device {
+  animation: laptopFloat 4s ease-in-out infinite;
+}
+
+@keyframes codeTyping {
+  0%, 10% {
+    stroke-dashoffset: 70;
+  }
+
+  70%, 100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes cursorBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes laptopFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* ==================================
+   CYBERSECURITY RADAR
+================================== */
+
+.security-shield {
+  animation: shieldFloat 3s ease-in-out infinite;
+}
+
+.security-radar {
+  fill: none;
+  stroke: #22d3ee;
+  stroke-width: 2;
+  stroke-dasharray: 8 12;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: radarScan 3s linear infinite;
+}
+
+@keyframes shieldFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes radarScan {
+  from {
+    transform: rotate(0deg) scale(0.7);
+    opacity: 0.2;
+  }
+
+  to {
+    transform: rotate(360deg) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* ==================================
+   CLOUD COMPUTING
+================================== */
+
+.cloud-floating {
+  animation: cloudFloat 4s ease-in-out infinite;
+}
+
+.server-group {
+  animation: serverFloat 3s ease-in-out infinite;
+}
+
+.server-light {
+  fill: #22d3ee;
+  animation: serverBlink 1s infinite alternate;
+}
+
+.light-two {
+  animation-delay: 0.5s;
+}
+
+.cloud-particle {
+  animation: particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes cloudFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes serverFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes serverBlink {
+  from {
+    opacity: 0.2;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ==================================
+   VIRTUAL REALITY
+================================== */
+
+.vr-device {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: vrFloat 4s ease-in-out infinite;
+}
+
+@keyframes vrFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+
+/* ==================================
+   PILOT TRAINING - FLYING AIRCRAFT
+================================== */
+
+.plane-flight {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: planeOrbit 7s linear infinite;
+}
+
+@keyframes planeOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================================
+   DATA ANALYTICS
+================================== */
+
+.analytics-bar {
+  fill: #22d3ee;
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: barGrow 2s ease-in-out infinite alternate;
+}
+
+.bar-two {
+  animation-delay: 0.3s;
+}
+
+.bar-three {
+  animation-delay: 0.6s;
+}
+
+.analytics-line {
+  fill: none;
+  stroke: #ddd;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: chartDraw 3s ease-in-out infinite;
+}
+
+@keyframes barGrow {
+  from {
+    transform: scaleY(0.4);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes chartDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ==================================
+   CARD CAPTIONS
+================================== */
+
+.illustration-caption {
+  position: relative;
+  z-index: 3;
+  padding: 10px 5px 5px;
+}
+
+.illustration-caption h3 {
+  color: #f3f3f3;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.illustration-caption p {
+  color: #929292;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ==================================
+   GLOW AND ORBIT
+================================== */
+
+@keyframes glowPulse {
+  from {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================================
+   HOVER INTERACTIONS
+================================== */
+
+.section-illustration:hover .robot-character {
+  animation-duration: 2.5s;
+}
+
+.section-illustration:hover .plane-flight {
+  animation-duration: 3s;
+}
+
+.section-illustration:hover .vr-device {
+  animation-duration: 2s;
+}
+
+.section-illustration:hover .illustration-glow {
+  opacity: 1;
+}
+
+/* ==================================
+   RESPONSIVE
+================================== */
+
+@media (max-width: 600px) {
+  .section-illustration {
+    min-height: 285px;
+  }
+
+  .illustration-visual {
+    height: 190px;
+  }
+
+  .illustration-svg {
+    height: 190px;
+  }
+}
+
+/* ==================================
+   ACCESSIBILITY
+================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .section-illustration *,
+  .illustration-glow,
+  .illustration-orbit {
+    animation: none !important;
+    transition: none !important;
+  }
+}
