@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import SectionIllustration from "./SectionIllustrations";
 import CodeBackground from "./CodeBackground";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -138,7 +138,9 @@ function OrbitalScene() {
         <mesh ref={sphere} position={[0, 0, 0]}>
           <icosahedronGeometry args={[1.15, 4]} />
           <MeshDistortMaterial
-            color="#A0A0A0"
+            color="#0ea5c6"
+            emissive="#075985"
+            emissiveIntensity={0.55}
             roughness={0.2}
             metalness={0.85}
             distort={0.25}
@@ -149,32 +151,32 @@ function OrbitalScene() {
 
       <mesh ref={torus} rotation={[1.2, 0.3, 0.4]}>
         <torusGeometry args={[1.8, 0.018, 16, 120]} />
-        <meshStandardMaterial color="#DEDEDE" metalness={1} roughness={0.2} />
+        <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={1.1} metalness={0.6} roughness={0.25} />
       </mesh>
 
       <mesh rotation={[0.8, 0.5, 0]}>
         <torusGeometry args={[2.15, 0.012, 16, 120]} />
-        <meshStandardMaterial color="#777777" metalness={1} roughness={0.3} />
+        <meshStandardMaterial color="#38bdf8" emissive="#0ea5e9" emissiveIntensity={0.9} metalness={0.6} roughness={0.3} />
       </mesh>
 
       <Float speed={2} floatIntensity={1}>
         <mesh position={[2.1, 1.1, 0.2]}>
           <octahedronGeometry args={[0.24, 0]} />
-          <meshStandardMaterial color="#DEDEDE" metalness={0.9} roughness={0.15} />
+          <meshStandardMaterial color="#67e8f9" emissive="#22d3ee" emissiveIntensity={0.8} metalness={0.9} roughness={0.15} />
         </mesh>
       </Float>
 
       <Float speed={1.8} floatIntensity={1}>
         <mesh position={[-2, -1.2, 0.5]}>
           <icosahedronGeometry args={[0.2, 1]} />
-          <meshStandardMaterial color="#888888" metalness={0.9} roughness={0.2} />
+          <meshStandardMaterial color="#fb7185" emissive="#e11d48" emissiveIntensity={0.7} metalness={0.9} roughness={0.2} />
         </mesh>
       </Float>
 
       <Float speed={1.5} floatIntensity={0.8}>
         <mesh position={[1.7, -1.5, 0]}>
           <sphereGeometry args={[0.13, 32, 32]} />
-          <meshStandardMaterial color="#DEDEDE" metalness={1} roughness={0.1} />
+          <meshStandardMaterial color="#a5f3fc" emissive="#67e8f9" emissiveIntensity={0.9} metalness={1} roughness={0.1} />
         </mesh>
       </Float>
     </group>
@@ -190,9 +192,332 @@ function Hero3D() {
     >
       <ambientLight intensity={1.2} />
       <directionalLight position={[4, 5, 5]} intensity={2.5} />
-      <pointLight position={[-4, -2, 3]} intensity={2} color="#A0A0A0" />
+      <pointLight position={[-4, -2, 3]} intensity={2.5} color="#22d3ee" />
       <OrbitalScene />
     </Canvas>
+  );
+}
+
+/* =========================================
+   SKILL DETAILS WINDOW
+   Floating glass "hologram" window opened from a skill card.
+========================================= */
+
+function SkillModal({ skill, onClose }) {
+  const closeRef = useRef(null);
+  const windowRef = useRef(null);
+  const onCloseRef = useRef(onClose);
+  const [layout, setLayout] = useState(null);
+  const [phase, setPhase] = useState("measure");
+  const [elapsed, setElapsed] = useState(0);
+
+  onCloseRef.current = onClose;
+
+  const reduceMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const requestClose = useCallback(() => {
+    setPhase((current) => {
+      if (current === "closing") return current;
+      setTimeout(() => onCloseRef.current(), reduceMotion ? 0 : 280);
+      return "closing";
+    });
+  }, [reduceMotion]);
+
+  /* Typing plan: every piece of text appears one after another. */
+  const plan = useMemo(() => {
+    if (!skill) return { map: {}, total: 0 };
+    const map = {};
+    let t = 0;
+    const add = (key, text, cps) => {
+      map[key] = { text, start: t, cps };
+      t += (text.length / cps) * 1000 + 140;
+    };
+    add("kicker", "SKILL DETAILS", 50);
+    add("title", skill.name, 13);
+    add("summary", skill.summary, 95);
+    add("label", "WHERE I APPLIED IT", 50);
+    skill.uses.forEach((use, i) => {
+      add(`use-${i}-project`, use.project, 55);
+      add(`use-${i}-note`, use.note, 120);
+    });
+    skill.tags.forEach((tag, i) => add(`tag-${i}`, tag, 40));
+    add("link", "See my projects", 45);
+    return { map, total: t };
+  }, [skill]);
+
+  /* Place the window next to the clicked card and work out the branch path. */
+  useLayoutEffect(() => {
+    if (!skill || !windowRef.current) return;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const W = windowRef.current.offsetWidth;
+    const H = windowRef.current.offsetHeight;
+    const r = skill.rect;
+    const card = {
+      left: r.left,
+      right: r.left + r.width,
+      top: r.top,
+      bottom: r.top + r.height,
+      cx: r.left + r.width / 2,
+      cy: r.top + r.height / 2,
+    };
+    const margin = 16;
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const topFor = () => clamp(card.cy - H / 2, margin, Math.max(margin, vh - H - margin));
+    const leftFor = () => clamp(card.cx - W / 2, margin, Math.max(margin, vw - W - margin));
+
+    let side;
+    let left;
+    let top;
+
+    const rightSpace = vw - margin - card.right - W;
+    const leftSpace = card.left - margin - W;
+    const belowSpace = vh - margin - card.bottom - H;
+    const aboveSpace = card.top - margin - H;
+
+    if (rightSpace >= 36) {
+      side = "right";
+      left = card.right + Math.min(70, rightSpace);
+      top = topFor();
+    } else if (leftSpace >= 36) {
+      side = "left";
+      left = card.left - Math.min(70, leftSpace) - W;
+      top = topFor();
+    } else if (belowSpace >= 36) {
+      side = "below";
+      left = leftFor();
+      top = card.bottom + Math.min(70, belowSpace);
+    } else if (aboveSpace >= 36) {
+      side = "above";
+      left = leftFor();
+      top = card.top - Math.min(70, aboveSpace) - H;
+    } else if (card.cy < vh / 2) {
+      side = "below";
+      left = leftFor();
+      top = Math.max(margin, vh - H - margin);
+    } else {
+      side = "above";
+      left = leftFor();
+      top = margin;
+    }
+
+    const win = { left, top, right: left + W, bottom: top + H };
+    let points;
+
+    if (side === "right" || side === "left") {
+      const sx = side === "right" ? card.right : card.left;
+      const ex = side === "right" ? win.left : win.right;
+      const sy = clamp(card.cy, 8, vh - 8);
+      const ey = clamp(sy, win.top + 30, win.bottom - 30);
+      const mx = (sx + ex) / 2;
+      points = [[sx, sy], [mx, sy], [mx, ey], [ex, ey]];
+    } else {
+      const sy = side === "below" ? card.bottom : card.top;
+      const ey = side === "below" ? win.top : win.bottom;
+      const sx = clamp(card.cx, 8, vw - 8);
+      const ex = clamp(sx, win.left + 30, win.right - 30);
+      const my = (sy + ey) / 2;
+      points = [[sx, sy], [sx, my], [ex, my], [ex, ey]];
+    }
+
+    const d = points.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x} ${y}`).join(" ");
+    const ring = `M${card.left} ${card.top} H${card.right} V${card.bottom} H${card.left} Z`;
+
+    setLayout({ vw, vh, left, top, side, points, d, ring });
+    setPhase(reduceMotion ? "type" : "branch");
+  }, [skill, reduceMotion]);
+
+  /* Timeline: branch grows, window unfolds, then the text types. */
+  useEffect(() => {
+    if (!layout || reduceMotion) return undefined;
+    const t1 = setTimeout(() => setPhase((p) => (p === "branch" ? "open" : p)), 850);
+    const t2 = setTimeout(() => setPhase((p) => (p === "open" ? "type" : p)), 1600);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [layout, reduceMotion]);
+
+  /* Typing clock. */
+  useEffect(() => {
+    if (phase !== "type") return undefined;
+    if (reduceMotion) {
+      setElapsed(1e9);
+      return undefined;
+    }
+    const startedAt = performance.now();
+    const id = setInterval(() => {
+      const t = performance.now() - startedAt;
+      setElapsed(t);
+      if (t > plan.total + 1500) clearInterval(id);
+    }, 33);
+    return () => clearInterval(id);
+  }, [phase, plan.total, reduceMotion]);
+
+  useEffect(() => {
+    if (!skill) return undefined;
+    const previouslyFocused = document.activeElement;
+    const onKey = (e) => {
+      if (e.key === "Escape") requestClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.documentElement.style.overflow = "hidden";
+    closeRef.current?.focus({ preventScroll: true });
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = "";
+      previouslyFocused?.focus?.({ preventScroll: true });
+    };
+  }, [skill, requestClose]);
+
+  if (!skill) return null;
+
+  const typed = (key) => {
+    const seg = plan.map[key];
+    if (!seg) return null;
+    const n = Math.max(
+      0,
+      Math.min(seg.text.length, Math.floor(((elapsed - seg.start) / 1000) * seg.cps)),
+    );
+    const active = n > 0 && n < seg.text.length;
+    return (
+      <>
+        <span>{seg.text.slice(0, n)}</span>
+        {active && <span className="type-caret" aria-hidden="true"></span>}
+        <span className="type-ghost">{seg.text.slice(n)}</span>
+      </>
+    );
+  };
+  const started = (key) => {
+    const seg = plan.map[key];
+    return seg && elapsed >= seg.start && phase === "type";
+  };
+
+  const ease = Math.min(1, Math.max(0, elapsed / 1400));
+  const pct = Math.round(skill.level * (1 - (1 - ease) ** 3));
+  const showWindow = phase === "open" || phase === "type" || phase === "closing";
+
+  return (
+    <div
+      className="skill-modal-backdrop"
+      data-phase={phase}
+      data-lenis-prevent
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) requestClose();
+      }}
+    >
+      {layout && (
+        <svg
+          className="skill-branch"
+          width={layout.vw}
+          height={layout.vh}
+          viewBox={`0 0 ${layout.vw} ${layout.vh}`}
+          aria-hidden="true"
+        >
+          <path className="skill-branch-ring" d={layout.ring} pathLength="1" />
+          <path className="skill-branch-line skill-branch-glow" d={layout.d} pathLength="1" />
+          <path className="skill-branch-line" d={layout.d} pathLength="1" />
+          <circle className="skill-branch-node" cx={layout.points[0][0]} cy={layout.points[0][1]} r="4.5" />
+          {layout.points.slice(1, 3).map(([x, y], i) => (
+            <rect key={i} className="skill-branch-elbow" x={x - 3} y={y - 3} width="6" height="6" />
+          ))}
+          <circle
+            className="skill-branch-node skill-branch-end"
+            cx={layout.points[3][0]}
+            cy={layout.points[3][1]}
+            r="4.5"
+          />
+          {showWindow && !reduceMotion && (
+            <circle className="skill-branch-pulse" r="3.2">
+              <animateMotion dur="1.8s" repeatCount="indefinite" path={layout.d} />
+            </circle>
+          )}
+        </svg>
+      )}
+
+      <div
+        ref={windowRef}
+        className={`skill-window side-${layout?.side ?? "right"}`}
+        style={{ left: layout?.left ?? 0, top: layout?.top ?? 0 }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="skill-window-title"
+      >
+        <span className="skill-corner tl" aria-hidden="true"></span>
+        <span className="skill-corner tr" aria-hidden="true"></span>
+        <span className="skill-corner bl" aria-hidden="true"></span>
+        <span className="skill-corner br" aria-hidden="true"></span>
+        <span className="skill-window-sheen" aria-hidden="true"></span>
+
+        <div className="skill-window-bar">
+          <span className="skill-window-dots" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </span>
+          <span className="skill-window-path">~/{skill.path}</span>
+          <button
+            ref={closeRef}
+            type="button"
+            className="skill-window-close"
+            onClick={requestClose}
+            aria-label="Close skill details"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="skill-window-body">
+          <aside className="skill-window-side">
+            <div
+              className="skill-ring"
+              style={{ "--level": `${phase === "type" ? pct : 0}%` }}
+              aria-label={`${skill.level}% familiarity`}
+            >
+              <span>{skill.symbol}</span>
+            </div>
+            <strong className="skill-ring-value">{phase === "type" ? pct : 0}%</strong>
+            <small>FAMILIARITY</small>
+          </aside>
+
+          <div className="skill-window-main">
+            <span className="skill-window-kicker">{typed("kicker")}</span>
+            <h3 id="skill-window-title" className="skill-title-tech">
+              {typed("title")}
+              <i className="skill-title-traces" aria-hidden="true"></i>
+            </h3>
+            <p className="skill-window-summary">{typed("summary")}</p>
+
+            <span className="skill-window-label">{typed("label")}</span>
+            <ul className="skill-uses">
+              {skill.uses.map((use, i) => (
+                <li key={use.project} className={started(`use-${i}-project`) ? "is-on" : ""}>
+                  <b>{typed(`use-${i}-project`)}</b>
+                  <span>{typed(`use-${i}-note`)}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="skill-window-tags">
+              {skill.tags.map((tag, i) => (
+                <span key={tag} className={started(`tag-${i}`) ? "is-on" : ""}>
+                  {typed(`tag-${i}`)}
+                </span>
+              ))}
+            </div>
+
+            <a
+              href="#projects"
+              className={`skill-window-link ${started("link") ? "is-on" : ""}`}
+              onClick={requestClose}
+            >
+              {typed("link")} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -410,14 +735,106 @@ function App() {
     };
   }, []);
 
+  const [activeSkill, setActiveSkill] = useState(null);
+
+  const openSkill = (skill, element) => {
+    const r = element.getBoundingClientRect();
+    setActiveSkill({
+      ...skill,
+      rect: { left: r.left, top: r.top, width: r.width, height: r.height },
+    });
+  };
+
   const skills = [
-    { name: "HTML & CSS", level: 90, symbol: "⌘" },
-    { name: "JavaScript", level: 75, symbol: "JS" },
-    { name: "React", level: 65, symbol: "⚛" },
-    { name: "Python", level: 75, symbol: "Py" },
-    { name: "C / C++", level: 80, symbol: "C+" },
-    { name: "PHP & Laravel", level: 80, symbol: "PHP" },
-    { name: "MySQL", level: 75, symbol: "DB" },
+    {
+      name: "HTML & CSS",
+      level: 90,
+      symbol: "⌘",
+      path: "skills/html-css",
+      summary:
+        "The base of every interface I build: semantic structure, responsive layouts and polished, animated styling.",
+      uses: [
+        { project: "Kerala Tourism Guide", note: "Responsive district-wise guide pages built with HTML5 and CSS3, with search cards and a mobile-friendly layout." },
+        { project: "Personal Portfolio", note: "Glass-style cards, grid layouts, theming and scroll animations for this website." },
+        { project: "Travel Planner with Buddy Finder", note: "Page layouts and forms for the trip-planning interface." },
+      ],
+      tags: ["Responsive Design", "Flexbox & Grid", "Animations", "Semantic HTML"],
+    },
+    {
+      name: "JavaScript",
+      level: 75,
+      symbol: "JS",
+      path: "skills/javascript",
+      summary:
+        "Used to make pages interactive: searching, filtering, navigation and animation.",
+      uses: [
+        { project: "Kerala Tourism Guide", note: "Searchable district cards and smooth movement between the 14 district guides." },
+        { project: "Smart Event Management System", note: "Front-end interactions for event listings and registration." },
+        { project: "Personal Portfolio", note: "GSAP scroll animations, the Three.js hero scene and the animated canvas background." },
+      ],
+      tags: ["DOM", "ES6+", "GSAP", "Three.js"],
+    },
+    {
+      name: "React",
+      level: 65,
+      symbol: "⚛",
+      path: "skills/react",
+      summary:
+        "Component-based UI development, which I'm continuing to deepen with each project.",
+      uses: [
+        { project: "Personal Portfolio", note: "The whole site is a React app: reusable components, hooks for animation and state, and this skills popup." },
+      ],
+      tags: ["Components", "Hooks", "Vite", "State"],
+    },
+    {
+      name: "Python",
+      level: 75,
+      symbol: "Py",
+      path: "skills/python",
+      summary:
+        "My go-to language for data-driven and machine learning work.",
+      uses: [
+        { project: "Diabetes Prediction System", note: "A machine learning project that predicts diabetes risk from patient health data." },
+        { project: "Agriculture Management System", note: "Python mini project covering soil identification and crop management." },
+      ],
+      tags: ["Machine Learning", "Data Handling", "Scripting"],
+    },
+    {
+      name: "C / C++",
+      level: 80,
+      symbol: "C+",
+      path: "skills/c-cpp",
+      summary:
+        "Where I built my programming foundations: logic, control flow and problem solving.",
+      uses: [
+        { project: "BCA & MCA coursework", note: "Core programming, arrays, functions and problem-solving exercises." },
+      ],
+      tags: ["Logic Building", "Problem Solving", "Data Structures"],
+    },
+    {
+      name: "PHP & Laravel",
+      level: 80,
+      symbol: "PHP",
+      path: "skills/php-laravel",
+      summary:
+        "Back-end web development with the MVC pattern, role-based features and databases.",
+      uses: [
+        { project: "Smart Event Management System", note: "Laravel app where admins manage organizers and events, organizers run programs, and participants browse and register." },
+      ],
+      tags: ["MVC", "Authentication", "Role-based Access", "CRUD"],
+    },
+    {
+      name: "MySQL",
+      level: 75,
+      symbol: "DB",
+      path: "skills/mysql",
+      summary:
+        "Designing tables and writing queries that keep application data organised.",
+      uses: [
+        { project: "Smart Event Management System", note: "Tables for users, events, programs and registrations, plus queries for listings and reports." },
+      ],
+      tags: ["Schema Design", "Joins", "Queries"],
+    },
   ];
 
   return (
@@ -701,7 +1118,7 @@ function App() {
           </div>
 
           <div className="timeline-item reveal">
-            <span className="timeline-year">HIGHER SECONDARY</span>
+            <span className="timeline-year">2020 — 2022</span>
             <div className="timeline-content">
               <span>PLUS TWO</span>
               <h3>Higher Secondary Education</h3>
@@ -711,7 +1128,7 @@ function App() {
           </div>
 
           <div className="timeline-item reveal">
-            <span className="timeline-year">SSLC</span>
+            <span className="timeline-year">2019</span>
             <div className="timeline-content">
               <span>SECONDARY</span>
               <h3>Secondary School Education</h3>
@@ -737,7 +1154,21 @@ function App() {
 
         <div className="skills-grid">
           {skills.map((skill, index) => (
-            <div className="skill-card" key={skill.name}>
+            <div
+              className="skill-card"
+              key={skill.name}
+              role="button"
+              tabIndex={0}
+              aria-haspopup="dialog"
+              aria-label={`${skill.name}: see where I applied it`}
+              onClick={(e) => openSkill(skill, e.currentTarget)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openSkill(skill, e.currentTarget);
+                }
+              }}
+            >
               <div className="skill-card-top">
                 <span className="skill-symbol">{skill.symbol}</span>
                 <span className="skill-number">0{index + 1}</span>
@@ -754,6 +1185,10 @@ function App() {
 
               <span className="skill-level">
                 {skill.level}% FAMILIARITY
+              </span>
+
+              <span className="skill-open-hint">
+                VIEW DETAILS <span aria-hidden="true">↗</span>
               </span>
             </div>
           ))}
@@ -923,6 +1358,36 @@ function App() {
               <span>MySQL</span>
               <span>JavaScript</span>
             </div>
+
+            <div className="project-shots" aria-label="Project screenshots">
+              <figure className="project-shot">
+                <img
+                  src="/portfolio-media/event-payment-reports.webp"
+                  alt="Smart Event Management admin payment reports with revenue and customer statistics"
+                  style={{ objectPosition: "left top" }}
+                  loading="lazy"
+                />
+                <figcaption>PAYMENT REPORTS</figcaption>
+              </figure>
+              <figure className="project-shot">
+                <img
+                  src="/portfolio-media/event-organizer-activity.webp"
+                  alt="Smart Event Management admin page monitoring active and inactive organizers"
+                  style={{ objectPosition: "left top" }}
+                  loading="lazy"
+                />
+                <figcaption>ORGANIZER ACTIVITY</figcaption>
+              </figure>
+              <figure className="project-shot">
+                <img
+                  src="/portfolio-media/event-ai-insights.webp"
+                  alt="Smart Event Management AI event performance insights dashboard"
+                  style={{ objectPosition: "left top" }}
+                  loading="lazy"
+                />
+                <figcaption>AI INSIGHTS</figcaption>
+              </figure>
+            </div>
           </article>
 
           <article className="project-card">
@@ -1011,7 +1476,79 @@ function App() {
 
           <article className="project-card">
             <div className="project-top">
-              <span>04 / PERSONAL PROJECT</span>
+              <span>04 / MACHINE LEARNING PROJECT</span>
+              <a
+                className="project-arrow project-external-link"
+                href="https://github.com/deepakkrishna341-pixel/machine-learning"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Diabetes Prediction System source code on GitHub"
+                title="View source on GitHub"
+              >
+                ↗
+              </a>
+            </div>
+
+            <div className="project-icon">✚</div>
+            <h3>Diabetes Prediction System</h3>
+
+            <p>
+              A machine learning project that predicts the likelihood
+              of diabetes from patient health indicators. It trains a
+              model on medical data and uses it to classify new cases,
+              showing how machine learning can support early risk
+              screening.
+            </p>
+
+            <div className="project-tech">
+              <span>Python</span>
+              <span>Machine Learning</span>
+              <span>Data Analysis</span>
+            </div>
+
+            <div className="project-shots" aria-label="Project screenshots">
+              <figure className="project-shot">
+                <img
+                  src="/portfolio-media/diabetes-predict.webp"
+                  alt="Diabetes Risk Prediction form for entering patient measurements"
+                  style={{ objectPosition: "left top" }}
+                  loading="lazy"
+                />
+                <figcaption>PREDICT</figcaption>
+              </figure>
+              <figure className="project-shot">
+                <img
+                  src="/portfolio-media/diabetes-hospital-live.webp"
+                  alt="Live diabetes screening queue with risk distribution and score trend"
+                  style={{ objectPosition: "left top" }}
+                  loading="lazy"
+                />
+                <figcaption>HOSPITAL LIVE</figcaption>
+              </figure>
+              <figure className="project-shot">
+                <img
+                  src="/portfolio-media/diabetes-live-estimate.webp"
+                  alt="Live estimate comparing KNN, Logistic Regression, Random Forest and SVM scores"
+                  style={{ objectPosition: "center top" }}
+                  loading="lazy"
+                />
+                <figcaption>LIVE ESTIMATE</figcaption>
+              </figure>
+            </div>
+
+            <a
+              className="project-repo-link"
+              href="https://github.com/deepakkrishna341-pixel/machine-learning"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View source on GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+
+          <article className="project-card">
+            <div className="project-top">
+              <span>05 / PERSONAL PROJECT</span>
               <span className="project-arrow">↗</span>
             </div>
 
@@ -1395,6 +1932,8 @@ function App() {
           © {new Date().getFullYear()} Deepak Krishna. All rights reserved.
         </small>
       </footer>
+
+      <SkillModal skill={activeSkill} onClose={() => setActiveSkill(null)} />
 
       <a
         href="#contact"
